@@ -50,8 +50,8 @@ namespace GamePatcher
                         var result = MessageBox.Query(20, 7, (string)Lenguage["Menu_warning_title"], (string)Lenguage["Menu_warning_install"], (string)Lenguage["Menu_Confirm"], (string)Lenguage["Menu_Decline"]);
                         if (result == 0)
                         {
-                            //PS4Dialoge();
-                            MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "Not implemented yet", "OK");
+                            PS4Dialoge();
+                            //MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "Not implemented yet", "OK");
                         }
                     }
                 },
@@ -76,7 +76,7 @@ namespace GamePatcher
                         if (result == 0)
                         {
                             //XboxDialoge();
-                            MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "Not implemented yet", "OK");
+                            MessageBox.ErrorQuery(20, 7, (string)Lenguage["No"], "Nope, no por ahora", "OK");
                         }
                     }
                 }
@@ -85,7 +85,7 @@ namespace GamePatcher
 
         private static void SwitchDialoge()
         {
-            var Patch_Window = new Terminal.Gui.Window("TEST")
+            var Patch_Window = new Terminal.Gui.Window("Switch")
             {
                 X = 0,
                 Y = 1,
@@ -131,7 +131,7 @@ namespace GamePatcher
 
         private static void PCDialoge()
         {
-            var Patch_Window = new Terminal.Gui.Window("TEST")
+            var Patch_Window = new Terminal.Gui.Window("PC")
             {
                 X = 0,
                 Y = 1,
@@ -139,7 +139,7 @@ namespace GamePatcher
                 Height = Dim.Fill()
             };
 
-            var Surveylabel = new Label ("PKG path: ") { X = 5, Y = 2 };
+            var Surveylabel = new Label ("Folder path: ") { X = 5, Y = 2 };
             var Surveylabelpath = new TextField(""){ X = 19, Y = 2, Width = 50};
             var Surveylabel_Button = new Button(70, 2, "Examinar"){ Clicked = () => {
                 
@@ -161,7 +161,7 @@ namespace GamePatcher
 
         private static void PS4Dialoge()
         {
-            var Patch_Window = new Terminal.Gui.Window("TEST")
+            var Patch_Window = new Terminal.Gui.Window("PS4")
             {
                 X = 0,
                 Y = 1,
@@ -191,7 +191,7 @@ namespace GamePatcher
 
         private static void XboxDialoge()
         {
-            var Patch_Window = new Terminal.Gui.Window("TEST")
+            var Patch_Window = new Terminal.Gui.Window("Xbox")
             {
                 X = 0,
                 Y = 1,

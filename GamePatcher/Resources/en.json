@@ -10,5 +10,6 @@
 	"Menu_warning_title": "Warning",
 	"Menu_Confirm": "Yes",
 	"Menu_Decline": "No",
-	"Error": "Error"
+	"Error": "Error",
+	"Menu_Open_File": "Open"
 }

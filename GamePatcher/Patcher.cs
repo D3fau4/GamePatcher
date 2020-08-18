@@ -79,6 +79,22 @@ namespace GamePatcher
             {
                 string tempdir = GetTemporaryDirectory();
                 PKG.extractPKG(Path.Combine(tempdir, "PKG"), pkgpath);
+                string[] Gamefile = Directory.GetFiles(Path.Combine(tempdir, "PKG"), "game.win", SearchOption.AllDirectories);
+                string[] Gamefile1 = Directory.GetFiles(Path.Combine(tempdir, "PKG"), "lang_en.json", SearchOption.AllDirectories);
+                string[] Gamefile2 = Directory.GetFiles(Path.Combine(tempdir, "PKG"), "*.GP4", SearchOption.AllDirectories);
+                createoutfolder("PS4");
+                var Gamewin = new FileStream(Gamefile[0], FileMode.Open, FileAccess.Read);
+                // patch game
+                ApplyPatch(Gamewin, Resources.PC, Path.Combine(tempdir, "PKG/games/game1.win"));
+                Gamewin.Close();
+                File.Delete(Path.Combine(tempdir, "PKG/games/game.win"));
+                File.Move(Path.Combine(tempdir, "PKG/games/game1.win"), Path.Combine(tempdir, "PKG/games/game.win"));
+                // patch json
+                JObject Json1 = JObject.Parse(Resources.lang);
+                JObject Json2 = JObject.Parse(File.ReadAllText(Gamefile1[0]));
+                Json2.Merge(Json1, new JsonMergeSettings { MergeArrayHandling = MergeArrayHandling.Union });
+                File.WriteAllText(Path.Combine(tempdir, "PKG/games/lang/lang_en.json"), Json2.ToString());
+                PKG.buikdPKG(Gamefile2[0],"ps4/");
                 MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "Not implemented yet" + tempdir, "OK");
             }
         }
