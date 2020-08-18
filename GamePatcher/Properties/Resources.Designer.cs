@@ -68,12 +68,54 @@ namespace GamePatcher.Properties {
         ///	&quot;Menu_patch_Switch&quot;: &quot;Install Patch for Nintendo Switch&quot;,
         ///	&quot;Menu_patch_Xbox&quot;: &quot;Install Patch for Xbox One&quot;,
         ///	&quot;Menu_patch_PC&quot;: &quot;Install Patch for PC&quot;,
-        ///	&quot;Menu_patch_PS4&quot;: &quot;Install Patch for PS4&quot;
+        ///	&quot;Menu_patch_PS4&quot;: &quot;Install Patch for PS4&quot;,
+        ///	&quot;Menu_warning_install&quot;: &quot;Are you sure you want to proceed with this?&quot;,
+        ///	&quot;Menu_warning_title&quot;: &quot;Warning&quot;,
+        ///	&quot;Menu_Confirm&quot;: &quot;Yes&quot;,
+        ///	&quot;Menu_Decline&quot;: &quot;No&quot;,
+        ///	&quot;Error&quot;: &quot;Error&quot;
         ///}.
         /// </summary>
         internal static string en {
             get {
                 return ResourceManager.GetString("en", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] PC {
+            get {
+                object obj = ResourceManager.GetObject("PC", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a .
+        /// </summary>
+        internal static string PS4 {
+            get {
+                return ResourceManager.GetString("PS4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a .
+        /// </summary>
+        internal static string Switch {
+            get {
+                return ResourceManager.GetString("Switch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a .
+        /// </summary>
+        internal static string Xbox {
+            get {
+                return ResourceManager.GetString("Xbox", resourceCulture);
             }
         }
     }

@@ -136,14 +136,23 @@ namespace GamePatcher
                 Height = Dim.Fill()
             };
 
+            var Surveylabel = new Label ("PKG path: ") { X = 5, Y = 2 };
+            var Surveylabelpath = new TextField(""){ X = 19, Y = 2, Width = 50};
+            var Surveylabel_Button = new Button(70, 2, "Examinar"){ Clicked = () => {
+                
+                var File = new OpenDialog("Open","Select the Folder");
+                Application.Run(File);
+                if(!File.Canceled) Surveylabelpath.Text = File.FilePath;
+            }};
+
             var OK = new Button(5,6,"Ok",true){
-                Clicked = () => StartPatchPC()
+                Clicked = () => StartPatchPC(Surveylabelpath.Text.ToString())
             };
             var Cancel = new Button(16,6,"Cancel",true) {
                 Clicked = () => Application.Run()
             };
             
-            Patch_Window.Add( OK, Cancel);
+            Patch_Window.Add( OK, Cancel, Surveylabel, Surveylabelpath, Surveylabel_Button);
             Application.Run(Patch_Window);
         }
 
