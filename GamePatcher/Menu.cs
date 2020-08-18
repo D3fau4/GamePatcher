@@ -38,6 +38,7 @@ namespace GamePatcher
                         if (result == 0)
                         {
                             SwitchDialoge();
+                            //MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "Not implemented yet", "OK");
                         }
                     }
                 },
@@ -49,7 +50,8 @@ namespace GamePatcher
                         var result = MessageBox.Query(20, 7, (string)Lenguage["Menu_warning_title"], (string)Lenguage["Menu_warning_install"], (string)Lenguage["Menu_Confirm"], (string)Lenguage["Menu_Decline"]);
                         if (result == 0)
                         {
-                            PS4Dialoge();
+                            //PS4Dialoge();
+                            MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "Not implemented yet", "OK");
                         }
                     }
                 },
@@ -73,7 +75,8 @@ namespace GamePatcher
                         var result = MessageBox.Query(20, 7, (string)Lenguage["Menu_warning_title"], (string)Lenguage["Menu_warning_install"], (string)Lenguage["Menu_Confirm"], (string)Lenguage["Menu_Decline"]);
                         if (result == 0)
                         {
-                            XboxDialoge();
+                            //XboxDialoge();
+                            MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "Not implemented yet", "OK");
                         }
                     }
                 }

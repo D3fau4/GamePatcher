@@ -83,6 +83,28 @@ namespace GamePatcher.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a {
+        ///	&quot;Title&quot;: &quot;GamePatcher&quot;,
+        ///	&quot;Menu_File&quot;: &quot;_File&quot;,
+        ///	&quot;Menu_File_Exit&quot;: &quot;_Exit&quot;,
+        ///	&quot;Menu_patch_Switch&quot;: &quot;Install Patch for Nintendo Switch&quot;,
+        ///	&quot;Menu_patch_Xbox&quot;: &quot;Install Patch for Xbox One&quot;,
+        ///	&quot;Menu_patch_PC&quot;: &quot;Install Patch for PC&quot;,
+        ///	&quot;Menu_patch_PS4&quot;: &quot;Install Patch for PS4&quot;,
+        ///	&quot;Menu_warning_install&quot;: &quot;Are you sure you want to proceed with this?&quot;,
+        ///	&quot;Menu_warning_title&quot;: &quot;Warning&quot;,
+        ///	&quot;Menu_Confirm&quot;: &quot;Yes&quot;,
+        ///	&quot;Menu_Decline&quot;: &quot;No&quot;,
+        ///	&quot;Error&quot;: &quot;Error&quot;
+        ///}.
+        /// </summary>
+        internal static string lang {
+            get {
+                return ResourceManager.GetString("lang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
         internal static byte[] PC {
@@ -93,29 +115,32 @@ namespace GamePatcher.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a .
+        ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
-        internal static string PS4 {
+        internal static byte[] PS4 {
             get {
-                return ResourceManager.GetString("PS4", resourceCulture);
+                object obj = ResourceManager.GetObject("PS4", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a .
+        ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
-        internal static string Switch {
+        internal static byte[] Switch {
             get {
-                return ResourceManager.GetString("Switch", resourceCulture);
+                object obj = ResourceManager.GetObject("Switch", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a .
+        ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
-        internal static string Xbox {
+        internal static byte[] Xbox {
             get {
-                return ResourceManager.GetString("Xbox", resourceCulture);
+                object obj = ResourceManager.GetObject("Xbox", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

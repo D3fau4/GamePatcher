@@ -29,6 +29,15 @@ namespace GamePatcher
                 string ncaFile = GetBigfile(Path.Combine(tempdir, "NSP"));
                 NCA.ProcessNCA(keyset, Path.Combine(tempdir, "NSP", ncaFile), Path.Combine(tempdir, "Romfs"));
                 string[] Gamefile = Directory.GetFiles(Path.Combine(tempdir, "Romfs"), "game.win", SearchOption.AllDirectories);
+                string[] Gamefile1 = Directory.GetFiles(Path.Combine(tempdir, "Romfs"), "lang_en.json", SearchOption.AllDirectories);
+                createoutfolder("Switch");
+                var Gamewin = new FileStream(Gamefile[0], FileMode.Open, FileAccess.Read);
+                // patch game
+                ApplyPatch(Gamewin, Resources.Switch, "Switch/010023800D64A000/romfs/game.win");
+                // patch json
+                JObject Json1 = JObject.Parse(Resources.lang);
+                JObject Json2 = JObject.Parse(File.ReadAllText(Gamefile1[0]));
+                Json2.Merge(Json1, new JsonMergeSettings { MergeArrayHandling = MergeArrayHandling.Union });
                 MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], Path.Combine(tempdir, "Romfs") + " " + Gamefile[0], "OK");
             }
         }
@@ -45,12 +54,15 @@ namespace GamePatcher
             else
             {
                 string tempdir = GetTemporaryDirectory();
+                createoutfolder("PC");
                 var Gamewin = new FileStream(Path.Combine(SurveyDir, Gamefile[0]), FileMode.Open, FileAccess.Read);
-                var Json = new FileStream(Path.Combine(SurveyDir, "lang", Gamefile1[0]), FileMode.Open, FileAccess.Read);
                 // patch game
-                ApplyPatch(Gamewin, Resources.PC, "penene");
+                ApplyPatch(Gamewin, Resources.PC, "PC/data.win");
                 // patch json
-                ApplyPatch(Json, Resources.PC, Path.Combine("Switch/layeredfs/010023800D64A000/romfs/lang", Gamefile1[0]));
+                JObject Json1 = JObject.Parse(Resources.lang);
+                JObject Json2 = JObject.Parse(File.ReadAllText(Gamefile1[0]));
+                Json2.Merge(Json1, new JsonMergeSettings { MergeArrayHandling = MergeArrayHandling.Union });
+                File.WriteAllText("PC/lang/lang_en.json", Json2.ToString());
                 MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "Not implemented yet", "OK");
             }
 
@@ -85,7 +97,22 @@ namespace GamePatcher
             decoder.Run();
             outStream.Close();
         }
-
+        private static void createoutfolder(string platform) {
+            string outputfolder = null;
+            switch (platform)
+            {
+                case "PS4":
+                    outputfolder = "ps4";
+                    break;
+                case "Switch":
+                    outputfolder = "Switch/010023800D64A000/romfs/lang";
+                    break;
+                case "PC":
+                    outputfolder = "PC/lang";
+                    break;
+            }
+            Directory.CreateDirectory(outputfolder);
+        }
         public static string GetTemporaryDirectory()
         {
             string tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
