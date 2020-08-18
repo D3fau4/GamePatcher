@@ -25,8 +25,9 @@ namespace GamePatcher
                 // Extract nsp
                 NSP.ProcessNSP(NSPpath, Path.Combine(tempdir, "NSP"));
                 string ncaFile = GetBigfile(Path.Combine(tempdir, "NSP"));
-                NCA.ProcessNCA(keyset, Path.Combine(tempdir, "NSP", ncaFile), Path.Combine(tempdir, "NCA"));
-                MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "Not implemented yet" + tempdir, "OK");
+                NCA.ProcessNCA(keyset, Path.Combine(tempdir, "NSP", ncaFile), Path.Combine(tempdir, "Romfs"));
+                string[] Gamefile = Directory.GetFiles(Path.Combine(tempdir, "Romfs"), "game.win", SearchOption.AllDirectories);
+                MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], Path.Combine(tempdir, "Romfs") + " " + Gamefile[0], "OK");
             }
         }
 
@@ -36,10 +37,16 @@ namespace GamePatcher
             MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "Not implemented yet", "OK");
         }
 
-        public static void StartPatchPS4()
+        public static void StartPatchPS4(string pkgpath)
         {
             JObject Lenguage = JObject.Parse(Resources.en);
-            MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "Not implemented yet", "OK");
+            if (!pkgpath.Contains(".pkg")){
+                MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "you have not chosen an pkg file", "OK");
+            } else {
+                string tempdir = GetTemporaryDirectory();
+                PKG.extractPKG(Path.Combine(tempdir, "PKG"),pkgpath);
+                MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "Not implemented yet" + tempdir, "OK");
+            }
         }
 
         public static void StartPatchXbox()

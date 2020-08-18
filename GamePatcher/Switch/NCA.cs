@@ -30,8 +30,6 @@ namespace GamePatcher
                         return;
                     }
 
-                    
-
                     if (outdir != null)
                     {
                         FileSystemClient fs = new FileSystemClient(new StopWatchTimeSpanGenerator());
@@ -45,30 +43,12 @@ namespace GamePatcher
                         fs.Unmount("output".ToU8Span());
                     }
                 }
-                IStorage OpenStorage(int index)
-                {
-                    if (ctx.Options.Raw)
-                    {
-                        if (baseNca != null) return baseNca.OpenRawStorageWithPatch(nca, index);
-
-                        return nca.OpenRawStorage(index);
-                    }
-
-                    if (baseNca != null) return baseNca.OpenStorageWithPatch(nca, index, 0);
-
-                    return nca.OpenStorage(index, 0);
-                }
 
                 IFileSystem OpenFileSystem(int index)
                 {
                     if (baseNca != null) return baseNca.OpenFileSystemWithPatch(nca, index, 0);
 
                     return nca.OpenFileSystem(index, 0);
-                }
-
-                IStorage OpenStorageByType(NcaSectionType type)
-                {
-                    return OpenStorage(Nca.GetSectionIndexFromType(type, nca.Header.ContentType));
                 }
 
                 IFileSystem OpenFileSystemByType(NcaSectionType type)

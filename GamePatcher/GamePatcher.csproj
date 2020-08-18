@@ -28,5 +28,6 @@
 
   <ItemGroup>
     <ProjectReference Include="../xdelta/xdelta/xdelta.csproj" />
+    <ProjectReference Include="..\LibOrbisPkg\LibOrbisPkg\LibOrbisPkg.csproj" />
   </ItemGroup>
 </Project>
