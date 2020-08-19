@@ -1,9 +1,9 @@
-﻿using System;
-using System.Buffers;
-using LibHac;
+﻿using LibHac;
 using LibHac.Common;
 using LibHac.Fs;
 using LibHac.FsSystem;
+using System;
+using System.Buffers;
 
 namespace GamePatcher
 {

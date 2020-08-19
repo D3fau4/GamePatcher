@@ -1,9 +1,9 @@
-﻿using Terminal.Gui;
-using System.IO;
+﻿using GamePatcher.Properties;
 using LibHac;
-using Xdelta;
-using GamePatcher.Properties;
 using Newtonsoft.Json.Linq;
+using System.IO;
+using Terminal.Gui;
+using Xdelta;
 
 namespace GamePatcher
 {
@@ -85,7 +85,7 @@ namespace GamePatcher
                 createoutfolder("PS4");
                 var Gamewin = new FileStream(Gamefile[0], FileMode.Open, FileAccess.Read);
                 // patch game
-                ApplyPatch(Gamewin, Resources.PC, Path.Combine(tempdir, "PKG/games/game1.win"));
+                ApplyPatch(Gamewin, Resources.PS4, Path.Combine(tempdir, "PKG/games/game1.win"));
                 Gamewin.Close();
                 File.Delete(Path.Combine(tempdir, "PKG/games/game.win"));
                 File.Move(Path.Combine(tempdir, "PKG/games/game1.win"), Path.Combine(tempdir, "PKG/games/game.win"));
@@ -94,7 +94,7 @@ namespace GamePatcher
                 JObject Json2 = JObject.Parse(File.ReadAllText(Gamefile1[0]));
                 Json2.Merge(Json1, new JsonMergeSettings { MergeArrayHandling = MergeArrayHandling.Union });
                 File.WriteAllText(Path.Combine(tempdir, "PKG/games/lang/lang_en.json"), Json2.ToString());
-                PKG.buikdPKG(Gamefile2[0],"ps4/");
+                PKG.buikdPKG(Gamefile2[0], "ps4/");
                 MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "Not implemented yet" + tempdir, "OK");
             }
         }
@@ -113,7 +113,8 @@ namespace GamePatcher
             decoder.Run();
             outStream.Close();
         }
-        private static void createoutfolder(string platform) {
+        private static void createoutfolder(string platform)
+        {
             string outputfolder = null;
             switch (platform)
             {

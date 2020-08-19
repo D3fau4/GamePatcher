@@ -1,7 +1,5 @@
-﻿using System.IO;
-using LibHac;
-using LibHac.Fs;
-using LibHac.FsSystem;
+﻿using LibHac.FsSystem;
+using System.IO;
 
 namespace GamePatcher
 {
@@ -18,6 +16,6 @@ namespace GamePatcher
                     pfs.Extract(OutDir);
                 }
             }
-        } 
+        }
     }
 }

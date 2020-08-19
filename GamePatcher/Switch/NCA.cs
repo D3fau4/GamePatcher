@@ -1,11 +1,10 @@
-﻿using System.IO;
-using Terminal.Gui;
-using LibHac;
+﻿using LibHac;
 using LibHac.Common;
 using LibHac.Fs;
 using LibHac.FsSystem;
 using LibHac.FsSystem.NcaUtils;
-using LibHac.Npdm;
+using System.IO;
+using Terminal.Gui;
 
 namespace GamePatcher
 {
