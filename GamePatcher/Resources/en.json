@@ -1,15 +1,15 @@
 {
-	"Title": "GamePatcher",
-	"Menu_File": "_File",
-	"Menu_File_Exit": "_Exit",
-	"Menu_patch_Switch": "Install Patch for Nintendo Switch",
-	"Menu_patch_Xbox": "Install Patch for Xbox One",
-	"Menu_patch_PC": "Install Patch for PC",
-	"Menu_patch_PS4": "Install Patch for PS4",
-	"Menu_warning_install": "Are you sure you want to proceed with this?",
+	"Title": "Deltarune vBETA",
+	"Menu_File": "_Archivo",
+	"Menu_File_Exit": "_Salir",
+	"Menu_patch_Switch": "Instalar parche para Nintendo Switch",
+	"Menu_patch_Xbox": "Instalar parche para Xbox One",
+	"Menu_patch_PC": "Instalar parche para PC",
+	"Menu_patch_PS4": "Instalar parche para PS4",
+	"Menu_warning_install": "¿ACEPTARÁS TODO CUANTO PASE DESDE ESTE MOMENTO?",
 	"Menu_warning_title": "Warning",
-	"Menu_Confirm": "Yes",
+	"Menu_Confirm": "Si",
 	"Menu_Decline": "No",
 	"Error": "Error",
-	"Menu_Open_File": "Open"
+	"Menu_Open_File": "Abrir"
 }

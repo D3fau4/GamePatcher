@@ -10,12 +10,13 @@ namespace GamePatcher
     class Patcher
     {
 
-        public static void StartPatchSwitch(string Keyset, string tkeyset, string NSPpath)
+        public static void StartPatchSwitch(string Keyset, NStack.ustring tkeyset, string NSPpath)
         {
             Keyset keyset;
             // Setup Keyset
-            /*if (tkeyset == " ") keyset = ExternalKeyReader.ReadKeyFile(Keyset); else */
-            keyset = ExternalKeyReader.ReadKeyFile(Keyset);
+            if (tkeyset == "") keyset = ExternalKeyReader.ReadKeyFile(Keyset); 
+            else
+            keyset = ExternalKeyReader.ReadKeyFile(Keyset, tkeyset.ToString());
             JObject Lenguage = JObject.Parse(Resources.en);
             if (!NSPpath.Contains(".nsp"))
             {
@@ -23,22 +24,31 @@ namespace GamePatcher
             }
             else
             {
+                
                 string tempdir = GetTemporaryDirectory();
                 // Extract nsp
+
                 NSP.ProcessNSP(NSPpath, Path.Combine(tempdir, "NSP"));
                 string ncaFile = GetBigfile(Path.Combine(tempdir, "NSP"));
+
                 NCA.ProcessNCA(keyset, Path.Combine(tempdir, "NSP", ncaFile), Path.Combine(tempdir, "Romfs"));
                 string[] Gamefile = Directory.GetFiles(Path.Combine(tempdir, "Romfs"), "game.win", SearchOption.AllDirectories);
                 string[] Gamefile1 = Directory.GetFiles(Path.Combine(tempdir, "Romfs"), "lang_en.json", SearchOption.AllDirectories);
+                string[] Gamefile2 = Directory.GetFiles(Path.Combine(tempdir, "Romfs"), "dontforget.ogg", SearchOption.AllDirectories);
                 createoutfolder("Switch");
-                var Gamewin = new FileStream(Gamefile[0], FileMode.Open, FileAccess.Read);
+                var dontforgetogg = new FileStream(Gamefile2[0], FileMode.Open, FileAccess.Read);
+                ApplyPatch(dontforgetogg, Resources.dontforget, "Switch/010023800D64A000/romfs/mus/dontforget.ogg");
                 // patch game
+                var Gamewin = new FileStream(Gamefile[0], FileMode.Open, FileAccess.Read);
                 ApplyPatch(Gamewin, Resources.Switch, "Switch/010023800D64A000/romfs/game.win");
+                // patch dontforget.ogg
+
                 // patch json
                 JObject Json1 = JObject.Parse(Resources.lang);
                 JObject Json2 = JObject.Parse(File.ReadAllText(Gamefile1[0]));
                 Json2.Merge(Json1, new JsonMergeSettings { MergeArrayHandling = MergeArrayHandling.Union });
-                MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], Path.Combine(tempdir, "Romfs") + " " + Gamefile[0], "OK");
+                File.WriteAllText("Switch/010023800D64A000/romfs/lang/lang_en.json", Json2.ToString());
+                MessageBox.Query(27, 10, "Parche listo", "Se ha creado el parche satisfactoriamente", "OK");
             }
         }
 
@@ -47,6 +57,7 @@ namespace GamePatcher
             JObject Lenguage = JObject.Parse(Resources.en);
             string[] Gamefile = Directory.GetFiles(SurveyDir, "data.win", SearchOption.AllDirectories);
             string[] Gamefile1 = Directory.GetFiles(SurveyDir, "lang_en.json", SearchOption.AllDirectories);
+            string[] Gamefile2 = Directory.GetFiles(SurveyDir, "dontforget.ogg", SearchOption.AllDirectories);
             if (Gamefile == null && Gamefile1 == null)
             {
                 MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "", "OK");
@@ -58,12 +69,16 @@ namespace GamePatcher
                 var Gamewin = new FileStream(Path.Combine(SurveyDir, Gamefile[0]), FileMode.Open, FileAccess.Read);
                 // patch game
                 ApplyPatch(Gamewin, Resources.PC, "PC/data.win");
+                // patch dontforget.ogg
+                var dontforgetogg = new FileStream(Gamefile2[0], FileMode.Open, FileAccess.Read);
+                ApplyPatch(dontforgetogg, Resources.dontforget, "PC/mus/dontforget.ogg");
                 // patch json
                 JObject Json1 = JObject.Parse(Resources.lang);
                 JObject Json2 = JObject.Parse(File.ReadAllText(Gamefile1[0]));
                 Json2.Merge(Json1, new JsonMergeSettings { MergeArrayHandling = MergeArrayHandling.Union });
                 File.WriteAllText("PC/lang/lang_en.json", Json2.ToString());
-                MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "Not implemented yet", "OK");
+                var result = MessageBox.Query(27, 10, "Parche listo", "Se ha creado el parche satisfactoriamente", "OK");
+                if (result == 0) Terminal.Gui.Application.Run();
             }
 
         }
@@ -82,6 +97,7 @@ namespace GamePatcher
                 string[] Gamefile = Directory.GetFiles(Path.Combine(tempdir, "PKG"), "game.win", SearchOption.AllDirectories);
                 string[] Gamefile1 = Directory.GetFiles(Path.Combine(tempdir, "PKG"), "lang_en.json", SearchOption.AllDirectories);
                 string[] Gamefile2 = Directory.GetFiles(Path.Combine(tempdir, "PKG"), "*.GP4", SearchOption.AllDirectories);
+                string[] Gamefile3 = Directory.GetFiles(Path.Combine(tempdir, "PKG"), "dontforget.ogg", SearchOption.AllDirectories);
                 createoutfolder("PS4");
                 var Gamewin = new FileStream(Gamefile[0], FileMode.Open, FileAccess.Read);
                 // patch game
@@ -89,13 +105,20 @@ namespace GamePatcher
                 Gamewin.Close();
                 File.Delete(Path.Combine(tempdir, "PKG/games/game.win"));
                 File.Move(Path.Combine(tempdir, "PKG/games/game1.win"), Path.Combine(tempdir, "PKG/games/game.win"));
+                // patch dontforget.ogg
+                var dontforgetogg = new FileStream(Gamefile3[0], FileMode.Open, FileAccess.Read);
+                ApplyPatch(dontforgetogg, Resources.dontforget, Path.Combine(tempdir, "PKG/games/mus/dontforget1.ogg"));
+                dontforgetogg.Close();
+                File.Delete(Path.Combine(tempdir, "PKG/games/mus/dontforget.ogg"));
+                File.Move(Path.Combine(tempdir, "PKG/games/mus/dontforget1.ogg"), Path.Combine(tempdir, "PKG/games/mus/dontforget.ogg"));
                 // patch json
                 JObject Json1 = JObject.Parse(Resources.lang);
                 JObject Json2 = JObject.Parse(File.ReadAllText(Gamefile1[0]));
                 Json2.Merge(Json1, new JsonMergeSettings { MergeArrayHandling = MergeArrayHandling.Union });
                 File.WriteAllText(Path.Combine(tempdir, "PKG/games/lang/lang_en.json"), Json2.ToString());
                 PKG.buikdPKG(Gamefile2[0], "ps4/");
-                MessageBox.ErrorQuery(20, 7, (string)Lenguage["Error"], "Not implemented yet" + tempdir, "OK");
+                var result = MessageBox.Query(27, 10, "Parche listo", "Se ha creado el parche satisfactoriamente", "OK");
+                if (result == 0) Terminal.Gui.Application.Run();
             }
         }
 
@@ -116,6 +139,7 @@ namespace GamePatcher
         private static void createoutfolder(string platform)
         {
             string outputfolder = null;
+            string secoutputfolder = null;
             switch (platform)
             {
                 case "PS4":
@@ -123,12 +147,15 @@ namespace GamePatcher
                     break;
                 case "Switch":
                     outputfolder = "Switch/010023800D64A000/romfs/lang";
+                    secoutputfolder = "Switch/010023800D64A000/romfs/mus";
                     break;
                 case "PC":
                     outputfolder = "PC/lang";
+                    secoutputfolder = "PC/mus";
                     break;
             }
             Directory.CreateDirectory(outputfolder);
+            if (secoutputfolder != null) Directory.CreateDirectory(secoutputfolder);
         }
         public static string GetTemporaryDirectory()
         {

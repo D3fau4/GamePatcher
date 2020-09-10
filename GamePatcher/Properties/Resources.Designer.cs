@@ -61,19 +61,30 @@ namespace GamePatcher.Properties {
         }
         
         /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] dontforget {
+            get {
+                object obj = ResourceManager.GetObject("dontforget", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a {
-        ///	&quot;Title&quot;: &quot;GamePatcher&quot;,
-        ///	&quot;Menu_File&quot;: &quot;_File&quot;,
-        ///	&quot;Menu_File_Exit&quot;: &quot;_Exit&quot;,
-        ///	&quot;Menu_patch_Switch&quot;: &quot;Install Patch for Nintendo Switch&quot;,
-        ///	&quot;Menu_patch_Xbox&quot;: &quot;Install Patch for Xbox One&quot;,
-        ///	&quot;Menu_patch_PC&quot;: &quot;Install Patch for PC&quot;,
-        ///	&quot;Menu_patch_PS4&quot;: &quot;Install Patch for PS4&quot;,
-        ///	&quot;Menu_warning_install&quot;: &quot;Are you sure you want to proceed with this?&quot;,
+        ///	&quot;Title&quot;: &quot;Deltarune&quot;,
+        ///	&quot;Menu_File&quot;: &quot;_Archivo&quot;,
+        ///	&quot;Menu_File_Exit&quot;: &quot;_Salir&quot;,
+        ///	&quot;Menu_patch_Switch&quot;: &quot;Instalar parche para Nintendo Switch&quot;,
+        ///	&quot;Menu_patch_Xbox&quot;: &quot;Instalar parche para Xbox One&quot;,
+        ///	&quot;Menu_patch_PC&quot;: &quot;Instalar parche para PC&quot;,
+        ///	&quot;Menu_patch_PS4&quot;: &quot;Instalar parche para PS4&quot;,
+        ///	&quot;Menu_warning_install&quot;: &quot;¿ACEPTARÁS TODO CUANTO PASE DESDE ESTE MOMENTO?&quot;,
         ///	&quot;Menu_warning_title&quot;: &quot;Warning&quot;,
-        ///	&quot;Menu_Confirm&quot;: &quot;Yes&quot;,
+        ///	&quot;Menu_Confirm&quot;: &quot;Si&quot;,
         ///	&quot;Menu_Decline&quot;: &quot;No&quot;,
-        ///	&quot;Error&quot;: &quot;Error&quot;
+        ///	&quot;Error&quot;: &quot;Error&quot;,
+        ///	&quot;Menu_Open_File&quot;: &quot;Abrir&quot;
         ///}.
         /// </summary>
         internal static string en {
@@ -84,19 +95,16 @@ namespace GamePatcher.Properties {
         
         /// <summary>
         ///   Busca una cadena traducida similar a {
-        ///	&quot;Title&quot;: &quot;GamePatcher&quot;,
-        ///	&quot;Menu_File&quot;: &quot;_File&quot;,
-        ///	&quot;Menu_File_Exit&quot;: &quot;_Exit&quot;,
-        ///	&quot;Menu_patch_Switch&quot;: &quot;Install Patch for Nintendo Switch&quot;,
-        ///	&quot;Menu_patch_Xbox&quot;: &quot;Install Patch for Xbox One&quot;,
-        ///	&quot;Menu_patch_PC&quot;: &quot;Install Patch for PC&quot;,
-        ///	&quot;Menu_patch_PS4&quot;: &quot;Install Patch for PS4&quot;,
-        ///	&quot;Menu_warning_install&quot;: &quot;Are you sure you want to proceed with this?&quot;,
-        ///	&quot;Menu_warning_title&quot;: &quot;Warning&quot;,
-        ///	&quot;Menu_Confirm&quot;: &quot;Yes&quot;,
-        ///	&quot;Menu_Decline&quot;: &quot;No&quot;,
-        ///	&quot;Error&quot;: &quot;Error&quot;
-        ///}.
+        ///    &quot;date&quot;: &quot;1540902565549&quot;,
+        ///    &quot;DEVICE_CONTACT_slash_Step_0_gml_5_0&quot;: &quot; ^9 ^8 %&quot;,
+        ///    &quot;DEVICE_CONTACT_slash_Step_0_gml_8_0&quot;: &quot;\\M0...&quot;,
+        ///    &quot;DEVICE_CONTACT_slash_Step_0_gml_125_0&quot;: &quot;\\M0 %&quot;,
+        ///    &quot;DEVICE_CONTACT_slash_Step_0_gml_6_0&quot;: &quot; ¿ESTÁS^6&amp; AHÍ^6?\\M1 ^6 %&quot;,
+        ///    &quot;DEVICE_CONTACT_slash_Step_0_gml_7_0&quot;: &quot;^6 \\M0¿ESTAMOS^6&amp;CONECTADOS^6? ^6 %%&quot;,
+        ///    &quot;DEVICE_CONTACT_slash_Step_0_gml_33_0&quot;: &quot;\\M0EXCELENTE^4.\\M1 ^6 %&quot;,
+        ///    &quot;special_name_check_01&quot;: &quot;SUSIE&quot;,
+        ///    &quot;special_name_check_02&quot;: &quot;NOELLE&quot;,
+        ///    &quot;speci [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string lang {
             get {

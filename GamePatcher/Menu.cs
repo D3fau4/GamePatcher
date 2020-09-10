@@ -12,6 +12,14 @@ namespace GamePatcher
             JObject Lenguage = JObject.Parse(Resources.en);
             // Start App
             Application.Init();
+            Colors.Base.Normal = Application.Driver.MakeAttribute(Color.Green, Color.Black);
+            Colors.Dialog.Normal = Application.Driver.MakeAttribute(Color.Green, Color.Black);
+            Colors.Menu.Normal = Application.Driver.MakeAttribute(Color.Green, Color.Black);
+            Colors.Error.Normal = Application.Driver.MakeAttribute(Color.Red, Color.Black);
+            Colors.Base.Focus = Application.Driver.MakeAttribute(Color.Red, Color.Black);
+            Colors.Dialog.Focus = Application.Driver.MakeAttribute(Color.Green, Color.Black);
+            Colors.Menu.Focus = Application.Driver.MakeAttribute(Color.Red, Color.Black);
+            Colors.Error.Focus = Application.Driver.MakeAttribute(Color.Green, Color.Black);
             var top = Application.Top;
             var Main = new Terminal.Gui.Window((string)Lenguage["Title"])
             {
@@ -65,9 +73,9 @@ namespace GamePatcher
                             PCDialoge();
                         }
                     }
-                },
+                }
                 // XBOX
-                new Button(10, 5, (string)Lenguage["Menu_patch_Xbox"])
+                /*new Button(10, 5, (string)Lenguage["Menu_patch_Xbox"])
                 {
                     Clicked = () =>
                     {
@@ -78,7 +86,7 @@ namespace GamePatcher
                             MessageBox.ErrorQuery(20, 7, (string)Lenguage["No"], "Nope, no por ahora", "OK");
                         }
                     }
-                }
+                }*/
                 );
         }
 
@@ -153,9 +161,12 @@ namespace GamePatcher
             {
                 Clicked = () =>
                 {
-                    if (KeysetPath.Text != null && NSPpath.Text != null)
+                    if (KeysetPath.Text != "" && NSPpath.Text != "")
                     {
-                        StartPatchSwitch(KeysetPath.Text.ToString(), tkeysetPath.Text.ToString(), NSPpath.Text.ToString());
+                        StartPatchSwitch(KeysetPath.Text.ToString(), tkeysetPath.Text, NSPpath.Text.ToString());
+                    } else
+                    {
+                        MessageBox.ErrorQuery(27, 10, "Error", "Por favor rellena los campos solicitados.", "OK");
                     }
                 }
             };
@@ -170,6 +181,7 @@ namespace GamePatcher
 
         private static void PCDialoge()
         {
+            bool start = false;
             var Patch_Window = new Terminal.Gui.Window("PC")
             {
                 X = 0,
@@ -202,13 +214,21 @@ namespace GamePatcher
 
             var OK = new Button(5, 6, "Ok", true)
             {
-                Clicked = () => StartPatchPC(Surveylabelpath.Text.ToString())
+                Clicked = () => {
+                    if (Surveylabelpath.Text != "")
+                    {
+                        start = true;
+                        StartPatchPC(Surveylabelpath.Text.ToString());
+                    }
+                    
+                    else
+                    MessageBox.ErrorQuery(27, 10, "Error", "Por favor rellena los campos solicitados.", "OK");
+                }
             };
             var Cancel = new Button(16, 6, "Cancel", true)
             {
                 Clicked = () => Application.Run()
             };
-
             Patch_Window.Add(OK, Cancel, Surveylabel, Surveylabelpath, Surveylabel_Button, Surveylabel_Button_Info);
             Application.Run(Patch_Window);
         }
@@ -247,7 +267,13 @@ namespace GamePatcher
 
             var OK = new Button(5, 6, "Ok", true)
             {
-                Clicked = () => StartPatchPS4(PKGpath.Text.ToString())
+                Clicked = () => {
+                    if (PKGpath.Text != "") 
+                    StartPatchPS4(PKGpath.Text.ToString()); 
+                    else 
+                    MessageBox.ErrorQuery(27, 10, "Error", "Por favor rellena los campos solicitados.", "OK");
+                }
+                
             };
             var Cancel = new Button(16, 6, "Cancel", true)
             {
